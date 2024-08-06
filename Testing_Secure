@@ -9,4 +9,4 @@ local function kickAllPlayers(reason)
     end
 end
 
-kickAllPlayers("⚠️ Pealu's internal dashboard returned a 404 error. Please notify a developer. You were kicked because your data failed to load, and server bans, logs, etc., are currently unavailable.")
+kickAllPlayers("An error occurred with the internal dashboard (API_KEY_INVALD). Please contact a developer as your data could not be saved, and server functionality such as bans and logs is temporarily unavailable. We apologize for the inconvenience.")
