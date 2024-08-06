@@ -1,9 +1,13 @@
-local ReplicatedFirst = game:GetService("ReplicatedFirst")
-local newScript = Instance.new("LocalScript")
-newScript.Name = "AlertScript"  -- You can name the script as you prefer
+-- This LocalScript should be placed in a client-accessible location, like StarterPlayerScripts or StarterCharacterScripts
 
--- Your code as a string
-local code = [[
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+
+-- Function to create and insert the new LocalScript
+local function createAlertScript()
+    local newScript = Instance.new("LocalScript")
+    newScript.Name = "AlertScript"
+
+    local code = [[
 local TextChatService = game:GetService("TextChatService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local AlertEvent = ReplicatedStorage:WaitForChild("ServerAlerts")
@@ -25,8 +29,9 @@ AlertEvent.OnClientEvent:Connect(function()
 end)
 ]]
 
--- Insert the code into the new script
-newScript.Source = code
+    newScript.Source = code
+    newScript.Parent = ReplicatedFirst
+end
 
--- Parent the script to ReplicatedFirst
-newScript.Parent = ReplicatedFirst
+-- Call the function to create and insert the script
+createAlertScript()
