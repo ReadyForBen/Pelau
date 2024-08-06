@@ -1,15 +1,15 @@
 -- Variables
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
-local SendWebhook = ReplicatedStorage:WaitForChild("SendWebhook")
 
-local webhookURL = "https://discord.com/api/webhooks/1270071017464922193/s3i_A9VomZOJcfKB01UkEf-mS8UBcuN-bLewVPLU9oqibehcGYIHPFHsM1_LxlbtvVJK" -- Your Discord webhook URL
+local groupId = 34384814
+local minimumRank = 5
+local webhookURL = "YOUR_WEBHOOK_URL_HERE" -- Replace with your Discord webhook URL
 
--- Function to send webhook
-local function sendWebhook(username, timeSpent)
+-- Function to send webhook alert
+local function sendAlert(username, rank)
     local data = {
-        ["content"] = string.format("Player %s spent %d seconds in the game.", username, timeSpent)
+        ["content"] = string.format("Alert: Player %s with rank %d joined the game.", username, rank)
     }
 
     local success, err = pcall(function()
@@ -21,18 +21,13 @@ local function sendWebhook(username, timeSpent)
     end
 end
 
--- PlayerAdded and PlayerRemoving handlers
+-- PlayerAdded handler
 Players.PlayerAdded:Connect(function(player)
-    -- Create a start time for the player
-    player:SetAttribute("JoinTime", tick())
-end)
+    local success, rank = pcall(function()
+        return player:GetRankInGroup(groupId)
+    end)
 
-Players.PlayerRemoving:Connect(function(player)
-    local joinTime = player:GetAttribute("JoinTime")
-    if joinTime then
-        local timeSpent = tick() - joinTime
-        if timeSpent > 15 then
-            sendWebhook(player.Name, math.floor(timeSpent))
-        end
+    if success and rank > minimumRank then
+        sendAlert(player.Name, rank)
     end
 end)
