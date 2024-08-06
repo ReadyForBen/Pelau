@@ -1,9 +1,12 @@
 local TextChatService = game:GetService("TextChatService")
 
-local Tag = "[ALERT]"
+local tag = "[ALERT]"
 local messages = {
-"hey test"
+    "hey test"
 }
 
+-- Ensure the message is pulled from the 'messages' table correctly
+local message = messages[1]
 
-TextChatService.TextChannels.RBXGeneral:DisplaySystemMessage(tag..message)
+-- Send the system message to the default text channel (RBXGeneral)
+TextChatService.TextChannels.RBXGeneral:DisplaySystemMessage(tag .. " " .. message)
