@@ -1,4 +1,4 @@
-local player = game.Players.LocalPlayer
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local newScript = Instance.new("LocalScript")
 newScript.Name = "AlertScript"  -- You can name the script as you prefer
 
@@ -28,5 +28,5 @@ end)
 -- Insert the code into the new script
 newScript.Source = code
 
--- Parent the script to the player's PlayerScripts
-newScript.Parent = player:WaitForChild("PlayerScripts")
+-- Parent the script to ReplicatedFirst
+newScript.Parent = ReplicatedFirst
